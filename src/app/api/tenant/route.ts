@@ -9,6 +9,7 @@ export async function GET() {
     email: tenant.email,
     tenantId: tenant.tenantId,
     tenantName: tenant.tenantName,
+    clientId: tenant.clientId,
     isAuthenticated: tenant.isAuthenticated,
   });
 }

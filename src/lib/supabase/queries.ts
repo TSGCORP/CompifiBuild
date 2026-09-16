@@ -5,6 +5,7 @@ export type ResolvedTenant = {
   email: string | null;
   tenantId: string | null;
   tenantName: string | null;
+  clientId: string | null;
   isAuthenticated: boolean;
 };
 
@@ -28,6 +29,7 @@ export async function resolveCurrentTenant(): Promise<ResolvedTenant> {
       email: null,
       tenantId: null,
       tenantName: null,
+      clientId: null,
       isAuthenticated: false,
     };
   }
@@ -44,7 +46,7 @@ export async function resolveCurrentTenant(): Promise<ResolvedTenant> {
 
   const tenantId = appUser?.primary_tenant_id ?? null;
   const { data: tenant, error: tenantError } = tenantId
-    ? await supabase.from("tenants").select("tenant_id, display_name").eq("tenant_id", tenantId).maybeSingle()
+    ? await supabase.from("tenants").select("tenant_id, display_name, client_id").eq("tenant_id", tenantId).maybeSingle()
     : { data: null, error: null };
 
   if (tenantError) {
@@ -56,6 +58,7 @@ export async function resolveCurrentTenant(): Promise<ResolvedTenant> {
     email: appUser?.email ?? user.email ?? null,
     tenantId,
     tenantName: tenant?.display_name ?? null,
+    clientId: tenant?.client_id ?? null,
     isAuthenticated: true,
   };
 }
@@ -67,9 +70,11 @@ export async function getTenantOverviewSnapshot() {
     return {
       tenantId: null,
       tenantName: null,
+      clientId: null,
       employeeCount: 0,
       totalCompensation: 0,
       averageCompaRatio: null,
+      belowMarketShare: null,
       insights: [],
       isAuthenticated: false,
     };
@@ -160,19 +165,25 @@ export async function getTenantOverviewSnapshot() {
       return [];
     }
 
-    return [(Number(compensation.base_salary_cents ?? 0) / p50Cents) * 100];
+    return [(Number(compensation.base_salary_cents ?? 0) / p50Cents)];
   });
 
   const averageCompaRatio = compaRatios.length
     ? compaRatios.reduce((sum, ratio) => sum + ratio, 0) / compaRatios.length
     : null;
 
+  const belowMarketShare = compaRatios.length
+    ? (compaRatios.filter((ratio) => ratio < 0.9).length / compaRatios.length) * 100
+    : null;
+
   return {
     tenantId: tenant.tenantId,
     tenantName: tenant.tenantName,
+    clientId: tenant.clientId,
     employeeCount: employeeCount ?? 0,
     totalCompensation,
     averageCompaRatio,
+    belowMarketShare,
     insights: (insights ?? []).map((insight) => ({
       insightId: insight.insight_id,
       headline: insight.headline,

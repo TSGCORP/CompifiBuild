@@ -1,0 +1,16 @@
+<svg width="824" height="180" viewBox="0 0 824 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(8 22)">
+    <path d="M55 0L110 33V102L55 135L0 102V33L55 0Z" fill="#0A0A0A"/>
+    <path d="M55 0L110 33H55V135L0 102V33L55 0Z" fill="#111111"/>
+    <path d="M55 0L110 33V102L55 135V0Z" fill="#0B0B0B"/>
+    <path d="M55 0L110 33L55 71L0 33L55 0Z" fill="#161616"/>
+    <path d="M55 71L110 33V102L55 135V71Z" fill="#D71D1A"/>
+    <path d="M55 71L0 33V102L55 135V71Z" fill="#0A0A0A"/>
+    <path d="M55 71L110 33L55 135L0 33L55 71Z" fill="#0A0A0A" opacity="0.96"/>
+  </g>
+  <g transform="translate(150 0)">
+    <text x="0" y="118" font-family="Arial, Helvetica, sans-serif" font-size="136" font-weight="700" letter-spacing="-10" fill="#0A0A0A">comp</text>
+    <text x="385" y="118" font-family="Arial, Helvetica, sans-serif" font-size="136" font-weight="700" letter-spacing="-10" fill="#D71D1A">ifi</text>
+    <circle cx="510" cy="36" r="17" fill="#D71D1A"/>
+  </g>
+</svg>

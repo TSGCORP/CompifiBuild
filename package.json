@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "fetch:salarycom": "node scripts/fetch-salarycom-one-job.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.5",
     "@supabase/supabase-js": "^2.112.4",
+    "dotenv": "^17.4.2",
     "next": "16.3.3",
     "react": "19.2.8",
     "react-dom": "19.2.8"
